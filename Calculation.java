@@ -9,9 +9,9 @@ public class Calculation {
 
     static Hashtable<String, Double> pt; // Probabilities Table -> The probability that Test is any kin
 
-    public static void setProbability() throws FileNotFoundException, IOException{
+    public static void setProbability(String filePath) throws FileNotFoundException, IOException{
         
-        FileReader      test;
+        FileReader      fr;
         BufferedReader  br;
         String          kin, word, line;
         String[]        testWords;
@@ -20,8 +20,8 @@ public class Calculation {
         long            totalKinWords;
 
         pt              = new Hashtable<>();
-        test            = new FileReader("Test.txt");
-        br              = new BufferedReader(test);
+        fr              = new FileReader(filePath);
+        br              = new BufferedReader(fr);
         line            = br.readLine();
         testWords       = null;
         totalKinWords   = 0;
@@ -45,8 +45,8 @@ public class Calculation {
 
             // Read Test in order to compute probability of kin. Also, prepare first value of probability
             probability = (double) Learn.ct.get(kin)/ (double) Learn.examples;
-            test    = new FileReader("Test.txt");
-            br      = new BufferedReader(test);
+            fr    = new FileReader(filePath);
+            br      = new BufferedReader(fr);
             line    = br.readLine();
 
             while (line != null) {

@@ -5,10 +5,10 @@ public class CNBC {
 
     public static void main(String[] args) throws IOException, FileNotFoundException{
         
-        Learn.populateTables();
+        Learn.populateTables("Train.csv");
         Learn.count();
 
-        Calculation.setProbability();
+        Calculation.setProbability("Test.txt");
         System.out.println("I think this is: " + Calculation.predict());
 
     }//end main

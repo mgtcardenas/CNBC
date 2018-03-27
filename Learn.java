@@ -15,17 +15,17 @@ public class Learn {
     static Hashtable<String, Integer>            at;         // Association Table      -> Index of each kin in the Word Tables Array List (So I can get those tables)
     static ArrayList<Hashtable<String, Integer>> wt;         // Word Tables            -> AL with Tables with # times each word happens in each kin
 
-    public static void populateTables() throws IOException, FileNotFoundException{
+    public static void populateTables(String filePath) throws IOException, FileNotFoundException{
 
-        FileReader      train;
+        FileReader      fr;
         BufferedReader  br;
         String          line, kin, text;
         String[]        words;
         int             i;
 
         i           = 0;
-        train       = new FileReader("Train.csv");
-        br          = new BufferedReader(train);
+        fr          = new FileReader(filePath);
+        br          = new BufferedReader(fr);
         line        = br.readLine();
 
         vocabulary  = new HashSet<>();
