@@ -29,7 +29,7 @@ public class Calculation {
         word            = "";
         kinWords        = null;
         kin             = "";
-        kins            = Learn.ct.keys();
+        kins            = Lesson.ct.keys();
 
         // Cycle through all kins to compute each of their respective probabilities in respect to Test
         while (kins.hasMoreElements()) {
@@ -37,32 +37,32 @@ public class Calculation {
             kin   = (String) kins.nextElement();
 
             // Get the number of total words (even repeated), n for each kin 
-            kinWords = Learn.wt.get(Learn.at.get(kin)).keys();
+            kinWords = Lesson.wt.get(Lesson.at.get(kin)).keys();
             while (kinWords.hasMoreElements()) {
                 word             = (String) kinWords.nextElement();
-                totalKinWords   += Learn.wt.get(Learn.at.get(kin)).get(word);
+                totalKinWords   += Lesson.wt.get(Lesson.at.get(kin)).get(word);
             }//end while (words in kins)
 
             // Read Test in order to compute probability of kin. Also, prepare first value of probability
-            probability = (double) Learn.ct.get(kin)/ (double) Learn.examples;
-            fr    = new FileReader(filePath);
-            br      = new BufferedReader(fr);
-            line    = br.readLine();
+            probability = (double) Lesson.ct.get(kin)/ (double) Lesson.examples;
+            fr          = new FileReader(filePath);
+            br          = new BufferedReader(fr);
+            line        = br.readLine();
 
             while (line != null) {
                 testWords = line.split(" ");
                 
                 for (String s : testWords) {
-                    if (Learn.vocabulary.contains(s)) {
+                    if (Lesson.vocabulary.contains(s)) {
 
-                        if (Learn.wt.get(Learn.at.get(kin)).get(s) != null) {
-                            probability *=  (double) (Learn.wt.get(Learn.at.get(kin)).get(s) + 1) / (double) ( totalKinWords + Learn.vocabulary.size() );
+                        if (Lesson.wt.get(Lesson.at.get(kin)).get(s) != null) {
+                            probability *=  (double) (Lesson.wt.get(Lesson.at.get(kin)).get(s) + 1) / (double) ( totalKinWords + Lesson.vocabulary.size() );
                         } else {
-                            probability *= (double) 1.0 / (double) ( totalKinWords + Learn.vocabulary.size() );
+                            probability *= (double) 1.0 / (double) ( totalKinWords + Lesson.vocabulary.size() );
                         }//end if-else (¿Word is in kin's known words?)
 
                     } else {
-                        probability *= (double) 0.001 / (double) ( totalKinWords + Learn.vocabulary.size() );
+                        probability *= (double) 0.001 / (double) ( totalKinWords + Lesson.vocabulary.size() );
                     }//end if-else (¿Word is in the vocabulary?)
                 }//end for
 
