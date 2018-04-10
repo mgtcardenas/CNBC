@@ -11,36 +11,37 @@ public class Lesson {
 
     static long                                  examples;   // Total number of exmaples (aka files or lines in this case)
     static HashSet<String>                       vocabulary; // All known words
-    static Hashtable<String, Integer>            ct;         // Classification Table   -> # of examples of each kin (how many spams/hams you have)
+    static Hashtable<String, Integer>            kt;         // Kins Table             -> # of examples of each kin (how many spams/hams you have)
     static Hashtable<String, Integer>            at;         // Association Table      -> Index of each kin in the Word Tables Array List (So I can get those tables)
     static ArrayList<Hashtable<String, Integer>> wt;         // Word Tables            -> AL with Tables with # times each word happens in each kin
 
-    public static void populateTables(String filePath) throws IOException, FileNotFoundException{
+    public static void fillTables(String filePath) throws IOException, FileNotFoundException{
 
         FileReader      fr;
         BufferedReader  br;
         String          line, kin, text;
         String[]        words;
-        int             i;
+        int             kinIndex;
 
-        i           = 0;
+        kinIndex    = 0;
         fr          = new FileReader(filePath);
         br          = new BufferedReader(fr);
         line        = br.readLine();
 
         vocabulary  = new HashSet<>();
-        ct          = new Hashtable<>();
+        kt          = new Hashtable<>();
         at          = new Hashtable<>();
         wt          = new ArrayList<>();
 
         while(line != null){
+
             kin         = line.substring(0, line.indexOf(','));
             text        = line.substring(line.indexOf(',') + 1, line.length() - 3);
             words       = text.split(" ");
 
-            if (ct.containsKey(kin)) {
+            if (kt.containsKey(kin)) {
                 
-                ct.put(kin, ct.get(kin) + 1);
+                kt.put(kin, kt.get(kin) + 1);
 
                 for (String w : words) {
 
@@ -56,11 +57,11 @@ public class Lesson {
 
             } else {
 
-                ct.put(kin, 1);
+                kt.put(kin, 1);
 
                 wt.add(new Hashtable<String, Integer>());
-                at.put(kin, i);
-                i++;
+                at.put(kin, kinIndex);
+                kinIndex++;
 
                 for (String w : words) {
 
@@ -89,13 +90,13 @@ public class Lesson {
         Enumeration kins;
         String      kin;
 
-        kins        = ct.keys();
+        kins        = kt.keys();
         kin         = "";
         examples    = 0;
 
         while (kins.hasMoreElements()) {
             kin = (String) kins.nextElement();
-            examples += ct.get(kin);
+            examples += kt.get(kin);
         }//end while
         
     }//end Count

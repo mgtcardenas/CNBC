@@ -29,7 +29,7 @@ public class Calculation {
         word            = "";
         kinWords        = null;
         kin             = "";
-        kins            = Lesson.ct.keys();
+        kins            = Lesson.kt.keys();
 
         // Cycle through all kins to compute each of their respective probabilities in respect to Test
         while (kins.hasMoreElements()) {
@@ -44,7 +44,7 @@ public class Calculation {
             }//end while (words in kins)
 
             // Read Test in order to compute probability of kin. Also, prepare first value of probability
-            probability = (double) Lesson.ct.get(kin)/ (double) Lesson.examples;
+            probability = (double) Lesson.kt.get(kin)/ (double) Lesson.examples;
             fr          = new FileReader(filePath);
             br          = new BufferedReader(fr);
             line        = br.readLine();
@@ -52,11 +52,11 @@ public class Calculation {
             while (line != null) {
                 testWords = line.split(" ");
                 
-                for (String s : testWords) {
-                    if (Lesson.vocabulary.contains(s)) {
+                for (String w : testWords) {
+                    if (Lesson.vocabulary.contains(w)) {
 
-                        if (Lesson.wt.get(Lesson.at.get(kin)).get(s) != null) {
-                            probability *=  (double) (Lesson.wt.get(Lesson.at.get(kin)).get(s) + 1) / (double) ( totalKinWords + Lesson.vocabulary.size() );
+                        if (Lesson.wt.get(Lesson.at.get(kin)).get(w) != null) {
+                            probability *=  (double) (Lesson.wt.get(Lesson.at.get(kin)).get(w) + 1) / (double) ( totalKinWords + Lesson.vocabulary.size() );
                         } else {
                             probability *= (double) 1.0 / (double) ( totalKinWords + Lesson.vocabulary.size() );
                         }//end if-else (¿Word is in kin's known words?)
@@ -102,6 +102,7 @@ public class Calculation {
         }//end while
 
     return prediction;
+    
     }//end predict
 
 }//end Calculation
