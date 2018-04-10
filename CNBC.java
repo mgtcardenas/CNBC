@@ -5,7 +5,7 @@ public class CNBC {
 
     public static void main(String[] args) throws IOException, FileNotFoundException{
         
-        Lesson.fillTables("Learn.csv"); //fillTables reads Learn.csv once
+        Lesson.fillTables("Examples.csv"); //fillTables reads Examples.csv once
         Lesson.count(); //gets the total number of examples by adding the # of exapmles of each kin
 
         Calculation.setProbability("Test.txt"); //Set probability reads Test.txt # of learned kins times
