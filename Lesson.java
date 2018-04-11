@@ -11,15 +11,15 @@ public class Lesson {
 
     static long                                  examples;   // Total number of exmaples (aka files or lines in this case)
     static HashSet<String>                       vocabulary; // All known words
-    static Hashtable<String, Integer>            kt;         // Kins Table             -> # of examples of each kin (how many spams/hams you have)
-    static Hashtable<String, Integer>            at;         // Association Table      -> Index of each kin in the Word Tables Array List (So I can get those tables)
-    static ArrayList<Hashtable<String, Integer>> wt;         // Word Tables            -> AL with Tables with # times each word happens in each kin
+    static Hashtable<String, Integer>            kinsTable;  // Kins Table   -> # of examples of each kin (how many spams/hams you have)
+    static Hashtable<String, Integer>            linksTable; // Links Table  -> Index of each kin in the Word Tables Array List (So I can get those tables)
+    static ArrayList<Hashtable<String, Integer>> wordsTables;// Words Tables -> ArrayList with Tables with # times each word happens in each kin
 
     public static void fillTables(String filePath) throws IOException, FileNotFoundException{
 
         FileReader      fr;
         BufferedReader  br;
-        String          line, kin, text;
+        String          line, kin, example;
         String[]        words;
         int             kinIndex;
 
@@ -29,48 +29,48 @@ public class Lesson {
         line        = br.readLine();
 
         vocabulary  = new HashSet<>();
-        kt          = new Hashtable<>();
-        at          = new Hashtable<>();
-        wt          = new ArrayList<>();
+        kinsTable   = new Hashtable<>();
+        linksTable  = new Hashtable<>();
+        wordsTables = new ArrayList<>();
 
         while(line != null){
 
-            kin         = line.substring(0, line.indexOf(','));
-            text        = line.substring(line.indexOf(',') + 1, line.length() - 3);
-            words       = text.split(" ");
+            kin     = Utils.getKin(line);
+            example = Utils.getExample(line);
+            words   = Utils.getWords(example);
 
-            if (kt.containsKey(kin)) {
+            if (kinsTable.containsKey(kin)) {
                 
-                kt.put(kin, kt.get(kin) + 1);
+                kinsTable.put(kin, kinsTable.get(kin) + 1);
 
                 for (String w : words) {
 
                     vocabulary.add(w);
 
-                    if (wt.get(at.get(kin)).contains(w)) {
-                        wt.get(at.get(kin)).put( w , wt.get(at.get(kin)).get(w) + 1 );
+                    if (wordsTables.get(linksTable.get(kin)).contains(w)) {
+                        wordsTables.get(linksTable.get(kin)).put( w , wordsTables.get(linksTable.get(kin)).get(w) + 1 );
                     } else {
-                        wt.get(at.get(kin)).put( w , 1 );
+                        wordsTables.get(linksTable.get(kin)).put( w , 1 );
                     }//end if-esle (¿Has this word already happened in kin's Word Table?)
 
                 }//end for (Count all words of kin and put them in its Word Table)
 
             } else {
 
-                kt.put(kin, 1);
+                kinsTable.put(kin, 1);
 
-                wt.add(new Hashtable<String, Integer>());
-                at.put(kin, kinIndex);
+                wordsTables.add(new Hashtable<String, Integer>());
+                linksTable.put(kin, kinIndex);
                 kinIndex++;
 
                 for (String w : words) {
 
                     vocabulary.add(w);
 
-                    if (wt.get(at.get(kin)).contains(w)) {
-                        wt.get(at.get(kin)).put( w , wt.get(at.get(kin)).get(w) + 1 );
+                    if (wordsTables.get(linksTable.get(kin)).contains(w)) {
+                        wordsTables.get(linksTable.get(kin)).put( w , wordsTables.get(linksTable.get(kin)).get(w) + 1 );
                     } else {
-                        wt.get(at.get(kin)).put( w , 1 );
+                        wordsTables.get(linksTable.get(kin)).put( w , 1 );
                     }//end if-esle (¿Has this word already happened in kin's Word Table?)
 
                 }//end for (Count all words of kin and put them in its Word Table)
@@ -90,13 +90,13 @@ public class Lesson {
         Enumeration kins;
         String      kin;
 
-        kins        = kt.keys();
+        kins        = kinsTable.keys();
         kin         = "";
         examples    = 0;
 
         while (kins.hasMoreElements()) {
             kin = (String) kins.nextElement();
-            examples += kt.get(kin);
+            examples += kinsTable.get(kin);
         }//end while
         
     }//end Count

@@ -29,7 +29,7 @@ public class Calculation {
         word            = "";
         kinWords        = null;
         kin             = "";
-        kins            = Lesson.kt.keys();
+        kins            = Lesson.kinsTable.keys();
 
         // Cycle through all kins to compute each of their respective probabilities in respect to Test
         while (kins.hasMoreElements()) {
@@ -37,14 +37,14 @@ public class Calculation {
             kin   = (String) kins.nextElement();
 
             // Get the number of total words (even repeated), n for each kin 
-            kinWords = Lesson.wt.get(Lesson.at.get(kin)).keys();
+            kinWords = Lesson.wordsTables.get(Lesson.linksTable.get(kin)).keys();
             while (kinWords.hasMoreElements()) {
                 word             = (String) kinWords.nextElement();
-                totalKinWords   += Lesson.wt.get(Lesson.at.get(kin)).get(word);
+                totalKinWords   += Lesson.wordsTables.get(Lesson.linksTable.get(kin)).get(word);
             }//end while (words in kins)
 
             // Read Test in order to compute probability of kin. Also, prepare first value of probability
-            probability = (double) Lesson.kt.get(kin)/ (double) Lesson.examples;
+            probability = (double) Lesson.kinsTable.get(kin)/ (double) Lesson.examples;
             fr          = new FileReader(filePath);
             br          = new BufferedReader(fr);
             line        = br.readLine();
@@ -55,8 +55,8 @@ public class Calculation {
                 for (String w : testWords) {
                     if (Lesson.vocabulary.contains(w)) {
 
-                        if (Lesson.wt.get(Lesson.at.get(kin)).get(w) != null) {
-                            probability *=  (double) (Lesson.wt.get(Lesson.at.get(kin)).get(w) + 1) / (double) ( totalKinWords + Lesson.vocabulary.size() );
+                        if (Lesson.wordsTables.get(Lesson.linksTable.get(kin)).get(w) != null) {
+                            probability *=  (double) (Lesson.wordsTables.get(Lesson.linksTable.get(kin)).get(w) + 1) / (double) ( totalKinWords + Lesson.vocabulary.size() );
                         } else {
                             probability *= (double) 1.0 / (double) ( totalKinWords + Lesson.vocabulary.size() );
                         }//end if-else (¿Word is in kin's known words?)
