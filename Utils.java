@@ -1,6 +1,6 @@
 public final class Utils {
 
-    public static final String EXAMPLES_FILE = "Examples.csv";
+    public static final String EXAMPLES_FILE = "Check.csv";
     public static final String TEST_FILE = "Test.txt";
 
     public static String getKin(String line) {

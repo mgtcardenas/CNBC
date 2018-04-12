@@ -43,6 +43,9 @@ public class Calculation {
                 numKinWords   += Lesson.wordsTables.get(Lesson.linksTable.get(kin)).get(word);
             }//end while (words in kins)
 
+            /*CHECK THAT TOTAL NUMBER OF WORDS IN KIN IS CORRECT*/
+            System.out.println("Words in "+ kin + ": " + numKinWords);
+
             //Prepare first value of probability
             probability = (double) Lesson.kinsTable.get(kin)/ (double) Lesson.examples;
 
