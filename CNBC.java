@@ -11,7 +11,7 @@ public class CNBC {
         /* CHECK SECTION */
         // System.out.println(Lesson.kinsTable.get("spam")+" + "+Lesson.kinsTable.get("ham")+" = "+Lesson.examples);
         // System.out.println(Lesson.vocabulary);
-        // System.out.println("# Times sentence appears in ham : "+Lesson.wordsTables.get(0).get("sentence"));
+        // System.out.println("# Times 'sentence' appears in ham : "+Lesson.wordsTables.get(0).get("sentence"));
 
         Calculation.setProbability(Utils.TEST_FILE); //Set probability reads Test.txt # of learned kins times
         System.out.println("I think this is: " + Calculation.predict()); //Gets the biggest probability from the probabilities table
