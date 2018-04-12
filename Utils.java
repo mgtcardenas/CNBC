@@ -8,6 +8,7 @@ public final class Utils {
         String kin;
 
         kin = line.substring(0, line.indexOf(','));
+        kin = kin.toLowerCase();
 
         return kin;
 
@@ -18,6 +19,7 @@ public final class Utils {
         String example;
 
         example = line.substring(line.indexOf(',') + 1, line.length() - 3);
+        example = example.toLowerCase();
 
         return example;
 

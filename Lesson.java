@@ -47,7 +47,7 @@ public class Lesson {
 
                     vocabulary.add(w);
 
-                    if (wordsTables.get(linksTable.get(kin)).contains(w)) {
+                    if (wordsTables.get(linksTable.get(kin)).containsKey(w)) {
                         wordsTables.get(linksTable.get(kin)).put( w , wordsTables.get(linksTable.get(kin)).get(w) + 1 );
                     } else {
                         wordsTables.get(linksTable.get(kin)).put( w , 1 );
@@ -67,7 +67,7 @@ public class Lesson {
 
                     vocabulary.add(w);
 
-                    if (wordsTables.get(linksTable.get(kin)).contains(w)) {
+                    if (wordsTables.get(linksTable.get(kin)).containsKey(w)) {
                         wordsTables.get(linksTable.get(kin)).put( w , wordsTables.get(linksTable.get(kin)).get(w) + 1 );
                     } else {
                         wordsTables.get(linksTable.get(kin)).put( w , 1 );
