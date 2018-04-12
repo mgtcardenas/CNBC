@@ -36,7 +36,6 @@ public final class Utils {
     }//end getKin
 
     private void Utils() {
-        
     }//end Utils
     
 }
