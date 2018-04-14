@@ -14,7 +14,7 @@ public class CNBC {
         // System.out.println("# Times 'sentence' appears in ham : "+Lesson.wordsTables.get(1).get("sentence"));
 
         Calculation.setProbability(Utils.TEST_FILE); //Set probability reads Test.txt # of learned kins times
-        System.out.println("I think this is: " + Calculation.predict()); //Gets the biggest probability from the probabilities table
+        System.out.println("I think this is: " + Calculation.getPrediction()); //Gets the biggest probability from the probabilities table
 
     }//end main
     

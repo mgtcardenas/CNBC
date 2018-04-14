@@ -23,7 +23,7 @@ public final class Utils {
 
         return example;
 
-    }//end getKin
+    }//end getExample
 
     public static String[] getWords(String example) {
 
@@ -33,7 +33,7 @@ public final class Utils {
 
         return words;
 
-    }//end getKin
+    }//end getWords
 
     private void Utils() {
     }//end Utils

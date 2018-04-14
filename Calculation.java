@@ -21,15 +21,10 @@ public class Calculation {
         long            numKinWords;
 
         probabilitiesTable  = new Hashtable<>();
-        
-        fr                  = new FileReader(filePath);
-        br                  = new BufferedReader(fr); 
-
-        line                = br.readLine();
-        probability         = 0.0;
-        kins                = Lesson.kinsTable.keys();
 
         // Cycle through all kins to compute each of their respective probabilities in respect to Test
+        kins            = Lesson.kinsTable.keys();
+
         while (kins.hasMoreElements()) {
 
             kin         = (String) kins.nextElement();
@@ -43,7 +38,7 @@ public class Calculation {
                 numKinWords   += Lesson.wordsTables.get(Lesson.linksTable.get(kin)).get(word);
             }//end while (words in kins)
 
-            /*CHECK THAT TOTAL NUMBER OF WORDS IN KIN IS CORRECT*/
+            /*FOR CHECKING THAT TOTAL NUMBER OF WORDS IN KIN IS CORRECT*/
             // System.out.println("Words in "+ kin + ": " + numKinWords);
 
             //Prepare first value of probability
@@ -77,16 +72,17 @@ public class Calculation {
 
             }//end while (reading Test file)
 
+            br.close();
             probabilitiesTable.put(kin, probability);
             System.out.println("Probability of: " + kin + " = " + probability);
 
         }//end while - (kins)
 
-        br.close();
+        
          
     }//end setProbability
 
-    public static String predict() {
+    public static String getPrediction() {
         
         // Get the Biggest Probability
         Enumeration kins;
