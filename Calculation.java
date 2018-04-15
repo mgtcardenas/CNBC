@@ -49,10 +49,10 @@ public class Calculation {
             br          = new BufferedReader(fr);
             line        = br.readLine();
 
-            //This while is here because the test may be more than one line long
+            // This while is here because the test may be more than one line long
             while (line != null) {
 
-                testWords = line.split(" ");
+                testWords = Utils.getWords(line);
                 
                 for (String w : testWords) {
                     if (Lesson.vocabulary.contains(w)) {

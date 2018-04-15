@@ -26,13 +26,16 @@ public class Lesson {
         kinIndex    = 0;
         fr          = new FileReader(filePath);
         br          = new BufferedReader(fr);
-        line        = br.readLine();
 
         vocabulary  = new HashSet<>();
         kinsTable   = new Hashtable<>();
         linksTable  = new Hashtable<>();
         wordsTables = new ArrayList<>();
 
+        Utils.ignoreFirstLine(br);
+
+        line        = br.readLine();
+        
         while(line != null){
 
             kin     = Utils.getKin(line);
