@@ -5,16 +5,13 @@ public class CNBC {
 
     public static void main(String[] args) throws IOException, FileNotFoundException{
         
-        Lesson.fillTables(Utils.EXAMPLES_FILE); //fillTables reads Examples.csv once
-        Lesson.count(); //gets the total number of examples by adding the # of examples of each kin
+        Training.train(Utils.TRAINING_FILE);
         
         /* CHECK SECTION */
-        // System.out.println(Lesson.kinsTable.get("spam")+" + "+Lesson.kinsTable.get("ham")+" = "+Lesson.examples);
-        // System.out.println(Lesson.vocabulary);
-        // System.out.println("# Times 'sentence' appears in ham : "+Lesson.wordsTables.get(1).get("sentence"));
+        // System.out.println(Training.kinsTable.get("spam") + " + " + Training.kinsTable.get("ham") + " = " + Training.examples);
+        // System.out.println(Training.vocabulary);
 
-        Calculation.setProbability(Utils.TEST_FILE); //Set probability reads Test.txt # of learned kins times
-        System.out.println("I think this is: " + Calculation.getPrediction()); //Gets the biggest probability from the probabilities table
+        Test.test(Utils.TEST_FILE);
 
     }//end main
     

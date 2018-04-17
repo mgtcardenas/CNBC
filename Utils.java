@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public final class Utils {
 
-    public static final String EXAMPLES_FILE = "Examples.csv";
-    public static final String TEST_FILE = "Examples_Test.txt";
+    public static final String TRAINING_FILE = "Files/Check Tweets.csv";
+    public static final String TEST_FILE = "Files/Check Tweets Test.csv";
 
     public static String getKin(String line) {
 
@@ -23,23 +23,40 @@ public final class Utils {
         String example;
 
         example = line.substring(line.indexOf(',') + 1, line.length());
+        example = example.replaceAll("<p>", "");
+        example = example.replaceAll("</p>", "");
+        example = example.replaceAll(",,,", "");
         example = example.toLowerCase();
 
         return example;
 
     }//end getExample
 
+    public static String getTest(String line) {
+
+        String test;
+
+        test = line.substring(line.indexOf(',') + 1, line.length());
+        test = test.replaceAll("<p>", "");
+        test = test.replaceAll("</p>", "");
+        test = test.replaceAll(",,,", "");
+        test = test.toLowerCase();
+
+        return test;
+
+    }//end getTest
+
     public static String[] getWords(String example){
 
         String[] words;
-        String tempExample;
 
         words = null;
 
         example     = example.toLowerCase();
-        tempExample = example.replaceAll("<p>", "");
-        tempExample = tempExample.replaceAll("</p>", "");
-        words = tempExample.split("\\W+");
+        example     = example.replaceAll("<p>", "");
+        example     = example.replaceAll("</p>", "");
+        example     = example.replaceAll(",,,", "");
+        words       = example.split("\\W+");
 
         return words;
 
@@ -49,7 +66,15 @@ public final class Utils {
 
         br.readLine();
 
-    }//end
+    }//end ignoreFirstLine
+
+    public static void ignoreLines(BufferedReader br, int numLines) throws IOException, FileNotFoundException {
+        
+        for (int i = 0; i < numLines; i++) {
+            br.readLine();
+        }//end for
+
+    }//end ignoreLines
 
     private void Utils() {
     }//end Utils
