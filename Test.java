@@ -41,10 +41,11 @@ public class Test {
             // System.out.println("Words in "+ kin + ": " + numKinWords);
 
             //Prepare first value of probability
-            probability = (double) Training.kinsTable.get(kin)/ (double) Training.examples;
+            probability = Math.log(Training.kinsTable.get(kin)) - Math.log(Training.examples);
+            // probability = (double) Training.kinsTable.get(kin)/ (double) Training.examples;
 
             /*CHECK THAT PROBABILITY IS FINE BEFORE CALCULATIONS*/
-            // System.out.println("Probability of " + kin + ": " + probability);
+            // System.out.println("Probability of " + kin + ": " + Math.exp(probability));
 
             //Calculate probabilities of each word, therefore, get the words as an array
             testWords = Utils.getWords(test);
@@ -57,13 +58,14 @@ public class Test {
                 if (Training.vocabulary.contains(w)) {
 
                     if (Training.wordsTables.get(Training.linksTable.get(kin)).containsKey(w)) {
-                        probability *=  (double) (Training.wordsTables.get(Training.linksTable.get(kin)).get(w) + 1) / (double) ( numKinWords + Training.vocabulary.size() );
+                        probability +=  Math.log(Training.wordsTables.get(Training.linksTable.get(kin)).get(w) + 1) - Math.log( numKinWords + Training.vocabulary.size() );
+                        // System.out.println("Probability of " + kin + ": " + Math.exp(probability));
                     } else {
-                        probability *= (double) 1.0 / (double) ( numKinWords + Training.vocabulary.size() );
+                        probability += Math.log(1.0) - Math.log( numKinWords + Training.vocabulary.size() );
                     }//end if-else (¿Word is in kin's known words?)
 
                 } else {
-                    probability *= (double) 0.001 / (double) ( numKinWords + Training.vocabulary.size() );
+                    probability += Math.log(0.001) - Math.log( numKinWords + Training.vocabulary.size() );
                 }//end if-else (¿Word is in the vocabulary?)
             }//end for
 
@@ -85,7 +87,7 @@ public class Test {
         kins        = probabilitiesTable.keys();
         kin         = "";
         pred        = "";
-        biggest     = 0;
+        biggest     = - Double.MAX_VALUE;
 
         while (kins.hasMoreElements()) {
 
@@ -93,9 +95,13 @@ public class Test {
 
             /*CHECK THAT THE PROBABILITIES ARE NOT 0*/
             // System.out.println("Probability of " + kin + ": " + probabilitiesTable.get(kin));
+            
 
             if (probabilitiesTable.get(kin) > biggest) {
                 biggest = probabilitiesTable.get(kin);
+
+                /*CHECK THAT THE BIGGEST PROBABILITY IS CORRECT */
+                // System.out.println("The biggest now is: " + biggest);
                 
                 pred    = kin;
             }//end if (¿Is there a new champion?)
@@ -103,6 +109,7 @@ public class Test {
         }//end while
 
         prediction = pred;
+        // System.out.println("My prediction is: " + prediction);
     }//end predict
 
     public static void test(String filePath) throws FileNotFoundException, IOException{
@@ -128,9 +135,9 @@ public class Test {
             setPrediction();
 
             if (kin.equals(prediction)) {
-                System.out.println("I think line " + lineNumber+" is "+ kin + " and I am right");
+                System.out.println("I think line " + lineNumber+" is "+ prediction + " and I am right");
             } else {
-                System.out.println("I think line " + lineNumber+" is "+ kin + ", but I am wrong");
+                System.out.println("I think line " + lineNumber+" is "+ prediction + ", but I am wrong");
             }//end if-else
 
             lineNumber++;

@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public final class Utils {
 
-    public static final String TRAINING_FILE = "Files/Check Tweets.csv";
-    public static final String TEST_FILE = "Files/Check Tweets Test.csv";
+    public static final String TRAINING_FILE = "Files/Emails.csv";
+    public static final String TEST_FILE = "Files/Emails Test.csv";
 
     public static String getKin(String line) {
 
